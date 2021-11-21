@@ -13,7 +13,7 @@ namespace SQL_appv2
                 Console.WriteLine("Hej, vad vill du göra? Välj med siffra nedan");
                 Console.WriteLine("1. Hur många länder finns i databasen?");
                 Console.WriteLine("2. Är samtliga usernames och passwords unika?");
-                Console.WriteLine("3. Hur många är från Norden respektive Skandinavien?");
+                Console.WriteLine("3. Hur många är från Skandinavien respektive Norden?");
                 Console.WriteLine("4. Vilket är det vanligast förekommande landet?");
                 Console.WriteLine("5. Lista de 10 fösta användare vars efternamn börjar på bokstaven L.");
                 Console.WriteLine("6. Visa alla användares vars för och efternamn har samma begynnelsebokstav");
@@ -64,21 +64,43 @@ namespace SQL_appv2
                         Console.Clear();
                         break;
                     case 3:
+                        
+                        sql = "SELECT COUNT(country)FROM MOCK_DATA WHERE country = 'Sweden' OR country = 'Norway' or country = 'Denmark'"; // Räknar antal som matchar keyword som matchar i country kolumn
+                        dt = SQLClass.GetDataTable(sql);
+                        Console.WriteLine("Antal från Skandinavien: ");
+                        SQLClass.PrintRow(dt);
+
+                        sql = "SELECT COUNT(country)FROM MOCK_DATA WHERE country= 'Sweden' OR country = 'Norway' or country = 'Denmark' or country = 'Finland' or country = 'Iceland'";
+                        dt = SQLClass.GetDataTable(sql);
+                        Console.WriteLine("Antal från Norden: ");
+                        SQLClass.PrintRow(dt);
 
                         Console.ReadLine();
                         Console.Clear();
                         break;
                     case 4:
+                        sql = "SELECT top1 country COUNT(country) AS country_occurrence FROM MOCK_DATA GROUP BY country ORDER BY country_occurrence DESC";
+                        dt = SQLClass.GetDataTable(sql);
+                        
+                        SQLClass.PrintRow(dt);
 
                         Console.ReadLine();
                         Console.Clear();
                         break;
                     case 5:
+                        sql = "SELECT top 10 last_name FROM MOCK_DATA WHERE last_name LIKE 'L%'";
+                        dt = SQLClass.GetDataTable(sql);
+
+                        SQLClass.PrintRow(dt);
 
                         Console.ReadLine();
                         Console.Clear();
                         break;
                     case 6:
+                        sql = "select count(*) letter from (select LEFT(first_name, 1) letter from users UNION ALL select LEFT(last_name, 1) letter from users) group by letter";
+                        dt = SQLClass.GetDataTable(sql);
+
+                        SQLClass.PrintRow(dt);
 
                         Console.ReadLine();
                         Console.Clear();

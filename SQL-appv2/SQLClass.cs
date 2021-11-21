@@ -39,10 +39,12 @@ namespace SQL_appv2
             {
                 for (var i = 0; i < dt.Columns.Count; i++)
                 {
+                    Console.WriteLine("+-----------+");
+                    
                     Console.Write(row[i] + " ");
                 }
                 Console.WriteLine("");
-                Console.WriteLine("-----------");
+                Console.WriteLine("+-----------+");
             }
         }
     }

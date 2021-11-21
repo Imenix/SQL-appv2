@@ -80,7 +80,7 @@ namespace SQL_appv2
                         break;
                     case 4:
                         sql = "SELECT top1 country COUNT(country) AS country_occurrence FROM MOCK_DATA GROUP BY country ORDER BY country_occurrence DESC";
-                        dt = SQLClass.GetDataTable(sql);
+                        dt = SQLClass.GetDataTable(sql); // Får inte denna att fungera
                         
                         SQLClass.PrintRow(dt);
 
@@ -98,7 +98,7 @@ namespace SQL_appv2
                         break;
                     case 6:
                         sql = "select count(*) letter from (select LEFT(first_name, 1) letter from users UNION ALL select LEFT(last_name, 1) letter from users) group by letter";
-                        dt = SQLClass.GetDataTable(sql);
+                        dt = SQLClass.GetDataTable(sql); // Får inte denna att fungera
 
                         SQLClass.PrintRow(dt);
 
